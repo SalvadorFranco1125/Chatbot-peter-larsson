@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Chatbot Peter Larsson</title>
+<style>
+    body {
+        background: #1e1e1e;
+        font-family: Arial, sans-serif;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .chat-container {
+        width: 350px;
+        background: #2b2b2b;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .chat-header {
+        background: #111;
+        padding: 10px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .chat-box {
+        height: 400px;
+        overflow-y: auto;
+        padding: 10px;
+    }
+
+    .message {
+        margin: 5px 0;
+        padding: 8px;
+        border-radius: 5px;
+        max-width: 80%;
+    }
+
+    .user {
+        background: #4caf50;
+        align-self: flex-end;
+    }
+
+    .bot {
+        background: #444;
+        align-self: flex-start;
+    }
+
+    .input-area {
+        display: flex;
+        border-top: 1px solid #555;
+    }
+
+    input {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        outline: none;
+    }
+
+    button {
+        padding: 10px;
+        background: #4caf50;
+        border: none;
+        color: white;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<div class="chat-container">
+    <div class="chat-header">Peter Larsson</div>
+    <div class="chat-box" id="chatBox"></div>
+
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="Escribe un mensaje...">
+        <button onclick="sendMessage()">Enviar</button>
+    </div>
+</div>
+
+<script>
+const chatBox = document.getElementById("chatBox");
+
+function addMessage(text, sender) {
+    const msg = document.createElement("div");
+    msg.classList.add("message", sender);
+    msg.textContent = text;
+    chatBox.appendChild(msg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+// Mensaje inicial
+addMessage("¿Quién eres y por qué tienes este número?", "bot");
+
+function sendMessage() {
+    const input = document.getElementById("userInput");
+    const text = input.value.trim();
+
+    if (text === "") return;
+
+    addMessage(text, "user");
+    input.value = "";
+
+    setTimeout(() => {
+        const response = getBotResponse(text);
+        addMessage(response, "bot");
+    }, 500);
+}
+
+// Lógica de Peter Larsson
+function getBotResponse(input) {
+    input = input.toLowerCase();
+
+    if (input.includes("hola")) {
+        return "No estoy para saludos. Di lo que sabes.";
+    }
+
+    if (input.includes("bosque")) {
+        return "Demasiado silencio ahí fuera. Eso nunca es buena señal.";
+    }
+
+    if (input.includes("criatura") || input.includes("monstruo")) {
+        return "No lo llames monstruo. Antes era humano.";
+    }
+
+    if (input.includes("alex")) {
+        return "No hables de él si no tienes información útil.";
+    }
+
+    if (input.includes("ayuda")) {
+        return "Entonces observa. Escucha. Y no cometas errores.";
+    }
+
+    if (input.includes("donde")) {
+        return "En el norte. Frío. Oscuro. Y algo nos está observando.";
+    }
+
+    return "No tengo tiempo para suposiciones. Sé específico.";
+}
+</script>
+
+</body>
+</html>
